@@ -13,7 +13,7 @@ if float(APP_VERSION) <= 0.98:
     import gtk
 else:
     import gi
-    from gi.repository import Gtk as gtk
+    from gi.repository import Gtk, Gdk
 
 # AVAILABLE must contain a list of all the classes that you want exposed
 AVAILABLE = ['JumpUp']
@@ -39,8 +39,12 @@ class JumpUp(plugin.MenuItem):
         t.scrollbar_jump(self.last_cursor_pos)
 
     def onKeyRelease(self, widget, event):
-        if (event.state & gtk.gdk.MOD1_MASK == gtk.gdk.MOD1_MASK) and (event.keyval == 74 or event.keyval == 106): # Alt+J or Alt+j
-            self.jumpUp(widget)
+        if float(APP_VERSION) <= 0.98:
+            if (event.state & Gtk.gdk.MOD1_MASK == Gtk.gdk.MOD1_MASK) and (event.keyval == 74 or event.keyval == 106): # Alt+J or Alt+j
+                self.jumpUp(widget)
+        else:
+            if (event.state & Gdk.ModifierType.MOD1_MASK == Gdk.ModifierType.MOD1_MASK) and (event.keyval == 74 or event.keyval == 106): # Alt+J or Alt+j
+                self.jumpUp(widget)
 
     def onKeyPress(self, widget, event):
         if event.keyval == 65293:
