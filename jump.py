@@ -10,7 +10,7 @@ from terminatorlib.version import APP_VERSION
 from terminatorlib.terminator import Terminator
 
 if float(APP_VERSION) <= 0.98:
-    import gtk
+    import gtk as Gtk
 else:
     import gi
     from gi.repository import Gtk, Gdk
@@ -30,7 +30,7 @@ class JumpUp(plugin.MenuItem):
         
 
     def callback(self, menuitems, menu, terminal):
-        item = gtk.MenuItem(_('JumpUp!'))
+        item = Gtk.MenuItem(_('JumpUp!'))
         item.connect("activate", self.jumpUp)
         menuitems.append(item)
 
