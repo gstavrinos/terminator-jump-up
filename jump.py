@@ -50,6 +50,11 @@ class JumpUp(plugin.MenuItem):
         if event.keyval == 65293:
             t = Terminator().last_focused_term
             col, row = t.get_vte().get_cursor_position()
-            content = t.get_vte().get_text_range(row-3, 0, row, col, lambda *a: True).split("\n")
-            if re.match("\w+@\w+", content[-2].split(":")[0]) and not content[-2].endswith("$ "):
-                self.last_cursor_pos = row
+            if float(APP_VERSION) <= 0.98:
+                content = t.get_vte().get_text_range(row-3, 0, row, col, lambda *a: True).split("\n")
+                if re.match("\w+@\w+", content[-2].split(":")[0]) and not content[-2].endswith("$ "):
+                    self.last_cursor_pos = row
+            else:
+                content = t.get_vte().get_text_range(row-3, 0, row, col, lambda *a: True)[0].split("\n")
+                if re.match("\w+@\w+", content[-1].split(":")[0]) and not content[-1].endswith("$ "):
+                    self.last_cursor_pos = row
