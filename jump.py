@@ -1,13 +1,19 @@
 import os
 import re
-import gtk
 import signal
 from socket import gethostname
 from getpass import getuser
 import terminatorlib.plugin as plugin
 from terminatorlib.util import err, dbg
 from terminatorlib.translation import _
+from terminatorlib.version import APP_VERSION
 from terminatorlib.terminator import Terminator
+
+if float(APP_VERSION) <= 0.98:
+    import gtk
+else:
+    import gi
+    from gi.repository import Gtk as gtk
 
 # AVAILABLE must contain a list of all the classes that you want exposed
 AVAILABLE = ['JumpUp']
